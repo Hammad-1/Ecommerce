@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Products</h1>
+<div class="row">
+
+    {% for product in products %}
+    <div class="col">
+
+        <div class="card" style="width: 18rem;">
+            <img src="{% static 'images/'%}{{product.image_url}}" class="Card" alt="Card">
+            <div class="card-body">
+                <h5 class="card-title">{{product.name}}</h5>
+                <p class="card-text">{{product.price}} Rs</p>
+                <form action="/product/" method="POST">
+                    {% csrf_token %}
+                    <input type="text" value={{product.id}} name="id" hidden>
+
+                <input type="submit" class="btn btn-primary" value="Add to Cart"></input>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
