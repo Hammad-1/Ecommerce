@@ -18,7 +18,10 @@
         </div>
     </div>
     {% endfor %}
+
 </div>
 
-
+<!--<a href="{% url 'checkout' %}" ><button style="font-family:arial; font-size:20px; width:120px; height:40px;-->
+<!--margin-top:20px; ; border: 1px solid 3498db; background: #2093c3; border-radius:5px;"> Checkout </button></a>-->
+<a href = "{% url 'checkout' %}"><button  style="margin-top:15px" class="btn btn-primary">Checkout</button></a>
 {% endblock %}

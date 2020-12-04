@@ -21,5 +21,10 @@ class CartItem(models.Model):
 
 class Order(models.Model):
     cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
+    name = models.CharField(max_length=64, default='name')
+    phone_number = models.IntegerField(default=1)
+    address = models.CharField(max_length=128, default='adress')
+    email = models.EmailField(default='email@gail.com')
+    postal_code = models.IntegerField(default=1)
 
 

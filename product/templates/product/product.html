@@ -2,7 +2,10 @@
 {% load static %}
 
 {% block content %}
+<a href="{% url 'showcart' %}"><img src="{% static 'images/cart.jpg' %}" height="100" align="right" style="margin:3%;"></a>
 <h1>Products</h1>
+
+
 <div class="row">
 
     {% for product in products %}
@@ -23,5 +26,11 @@
         </div>
     </div>
     {% endfor %}
+
 </div>
+
+
+
+
+
 {% endblock %}

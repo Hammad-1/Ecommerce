@@ -1,8 +1,7 @@
-from django.shortcuts import render
-
 
 from django.shortcuts import render
 from .models import Product, CartItem, Cart, Order
+from .forms import Detail
 
 
 def get_cart(request):
@@ -35,6 +34,30 @@ def show_cart(request):
     cart_id = request.session.get('cart_id')
     cart_items = CartItem.objects.filter(cart=cart_id)
     return render(request, 'display_cart.html', {'cart_item': cart_items})
+
+
+def checkout(request):
+    cart_id = request.session.get('cart_id')
+    cart_items = CartItem.objects.filter(cart=cart_id)
+    if request.method == 'POST':
+        form = Detail(request.POST)
+        name = request.POST['name']
+        phone_number = request.POST['phone_number']
+        email = request.POST['email']
+        address = request.POST['address']
+        postal_code = request.POST['postal_code']
+        details = Order(
+            cart_id=cart_id, name=name, phone_number=phone_number, email=email, address=address, postal_code=postal_code)
+        details.save()
+        return render(request, 'product/order_placed.html')
+
+    else:
+        form = Detail()
+        total = int()
+        for price in cart_items:
+            total += price.product.price
+
+        return render(request, 'product/checkout.html', {'form': form, 'items': cart_items, 'total': total})
 
 
 
