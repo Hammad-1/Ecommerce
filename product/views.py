@@ -49,7 +49,7 @@ def checkout(request):
         details = Order(
             cart_id=cart_id, name=name, phone_number=phone_number, email=email, address=address, postal_code=postal_code)
         details.save()
-        return render(request, 'product/order_placed.html')
+        return render(request, 'product/invoice.html')
 
     else:
         form = Detail()
@@ -59,6 +59,15 @@ def checkout(request):
 
         return render(request, 'product/checkout.html', {'form': form, 'items': cart_items, 'total': total})
 
+
+def invoive(request):
+    cart_id = request.session.get('cart_id')
+    cart_items = CartItem.objects.filter(cart=cart_id)
+    total = int()
+    for price in cart_items:
+        total += price.product.price
+    return render(request, 'product/invoice.html', {'cart_item': cart_items,
+                                                    'total':total})
 
 
 
